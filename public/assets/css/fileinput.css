@@ -1,0 +1,12 @@
+
+input[type="file"]{
+    width: 50%;
+}
+
+@supports (-ms-ime-align:auto) {
+
+    input[type="file"]{
+        width: auto;
+    }
+}
+
