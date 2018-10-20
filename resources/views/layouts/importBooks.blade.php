@@ -9,6 +9,9 @@
         <li class="breadcrumb-item active">List View</li>
     </ol>
 
+    @include('partials.messages4')
+
+
     <div class="card mb-3">
         <div class="card-header">
             <i class="fas fa-table"></i>

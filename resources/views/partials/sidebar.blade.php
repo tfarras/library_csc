@@ -15,6 +15,7 @@
         <div class="dropdown-menu" aria-labelledby="pagesDropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(5px, 56px, 0px); top: 0px; left: 0px; will-change: transform;">
             <a class="dropdown-item" href="{{route('books.listview')}}">List View</a>
             <a class="dropdown-item" href="{{route('books.listimport.index')}}">Import</a>
+            <a class="dropdown-item" href="{{route('books.manual.add')}}">Add New Book</a>
         </div>
     </li>
 
@@ -26,6 +27,7 @@
         <div class="dropdown-menu" aria-labelledby="pagesDropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(5px, 56px, 0px); top: 0px; left: 0px; will-change: transform;">
             <a class="dropdown-item" href="{{route('beneficiaries.listview')}}">List View</a>
             <a class="dropdown-item" href="{{route('beneficiaries.listimport.index')}}">Import</a>
+            <a class="dropdown-item" href="{{route('beneficiary.manual.add')}}">Add New Beneficiary</a>
         </div>
     </li>
 

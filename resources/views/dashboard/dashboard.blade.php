@@ -17,7 +17,7 @@
                     </div>
                     <div class="mr-5">{{$books->count()}} books registered</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
+                <a class="card-footer text-white clearfix small z-1" href="{{route('books.listview')}}">
                     <span class="float-left">View Details</span>
                     <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="mr-5">{{$beneficiars->count()}} beneficiaries registered</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
+                <a class="card-footer text-white clearfix small z-1" href="{{route('beneficiaries.listview')}}">
                     <span class="float-left">View Details</span>
                     <span class="float-right">
                     <i class="fas fa-angle-right"></i>

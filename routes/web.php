@@ -21,3 +21,13 @@ Route::post('/books/list-import/save','HomeController@importListSave')->name('bo
 Route::get('/beneficiaries/list-view','HomeController@listViewBeneficiariesIndex')->name('beneficiaries.listview');
 Route::get('/beneficiaries/list-import/index','HomeController@importListBeneficiariesIndex')->name('beneficiaries.listimport.index');
 Route::post('/beneficiaries/list-import/save','HomeController@importListBeneficiariesSave')->name('beneficiaries.listimport');
+
+Route::get('/books/add/manual/index',function (){
+    return view('layouts.manualBook');
+})->name('books.manual.add');
+Route::get('/beneficiary/add/manual/index',function (){
+    return view('layouts.manualBeneficiary');
+})->name('beneficiary.manual.add');
+
+Route::post('/books/add/manual/save','HomeController@manualAddBook')->name('books.manual.add.save');
+Route::post('/beneficiary/add/manual/save','HomeController@manualAddBeneficiary')->name('beneficiaries.manual.add.save');
