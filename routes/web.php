@@ -18,3 +18,6 @@ Route::get('/', 'HomeController@index')->name('dashboard');
 Route::get('/books/list-view','HomeController@listView')->name('books.listview');
 Route::get('/books/list-import/index','HomeController@importListIndex')->name('books.listimport.index');
 Route::post('/books/list-import/save','HomeController@importListSave')->name('books.listimport');
+Route::get('/beneficiaries/list-view','HomeController@listViewBeneficiariesIndex')->name('beneficiaries.listview');
+Route::get('/beneficiaries/list-import/index','HomeController@importListBeneficiariesIndex')->name('beneficiaries.listimport.index');
+Route::post('/beneficiaries/list-import/save','HomeController@importListBeneficiariesSave')->name('beneficiaries.listimport');

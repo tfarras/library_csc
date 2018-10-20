@@ -6,6 +6,7 @@ use App\Author;
 use App\BookStatus;
 use App\Category;
 use App\Edition;
+use App\PlaceStudy;
 use Complex\Exception;
 use Illuminate\Http\Request;
 use App\Book;
@@ -97,27 +98,21 @@ class HomeController extends Controller
             $book->author_id=$author_id;
             $book->edition_id=$edition_id;
             $code = $sheet->getCell('E'.$i)->getValue();
-            $code = $arr = explode(".", $code, 2);
+            $codeCat = substr($code,0,3);
 
-
-            $category = Category::where('code',$code[0])->first();
+            $category = Category::where('code',$codeCat)->first();
             $cat_id=0;
             if(!$category){
                 $category=new Category();
-                $category->code=$code[0];
+                $category->code=$codeCat;
                 $category->name='Undefined';
                 $cat_id=$category->save();
             }else{
                 $cat_id=$category->id;
             }
                 $book->category_id = $cat_id;
-            if(isset($code[1])){
-                $code = substr($code[1], 0, strpos($code[1], ' '));
-            }else{
-                $code=$code[0];
-            }
 
-            $book->code = $code;
+            $book->code = substr($code,4,1);
 
             $status = BookStatus::where('name',$sheet->getCell('F'.$i)->getValue())->first();
             $status_id=0;
@@ -138,5 +133,63 @@ class HomeController extends Controller
         }
         unlink('uploads/'.$fileName);
         return redirect()->back();
+    }
+
+    public function listViewBeneficiariesIndex(){
+
+        $beneficiaries = Beneficiary::all();
+
+        return view('layouts.listBeneficiariesIndex')
+            ->with('beneficiaries',$beneficiaries);
+    }
+
+    public function importListBeneficiariesSave(Request $request){
+
+
+        $file = $request->file('file');
+        $extensions=['xlsx','xls'];
+        $extension='';
+        if(in_array($file->guessClientExtension(),$extensions)) $extension=$file->guessClientExtension();
+        if(in_array($file->getClientOriginalExtension(),$extensions)) $extension=$file->getClientOriginalExtension();
+
+        $fileName=uniqid().'.'.$extension;
+        $file->storeAs('uploads',$fileName,'uploads');
+        $fileNameOriginal=$file->getClientOriginalName();
+
+        $reader= PHPExcel_IOFactory::load('uploads/'.$fileName);
+        $sheet= $reader->getActiveSheet();
+
+        $i=2;
+
+        while ($sheet->getCell('A'.$i)->getValue()!==null && $sheet->getCell('A'.$i)->getValue()!==''){
+            $beneficiary = new Beneficiary();
+            $beneficiary->first_name = $sheet->getCell('A'.$i)->getValue();
+            $beneficiary->last_name= $sheet->getCell('B'.$i)->getValue();
+            $place_study = PlaceStudy::where('name',$sheet->getCell('C'.$i)->getValue())->first();
+            $placeid=0;
+            if(!$place_study){
+                $place_study = new PlaceStudy();
+                $place_study->name=$sheet->getCell('C'.$i)->getValue();
+                $placeid=$place_study->save();
+            }else{
+                $placeid=$place_study->id;
+            }
+            $beneficiary->study_place_id = $placeid;
+            $beneficiary->study_year = $sheet->getCell('D'.$i)->getValue();
+            $beneficiary->address = $sheet->getCell('E'.$i)->getValue();
+            $beneficiary->idnp = $sheet->getCell('F'.$i)->getValue();
+            $beneficiary->tel_number = $sheet->getCell('G'.$i)->getValue();
+            $beneficiary->email = $sheet->getCell('H'.$i)->getValue();
+            $beneficiary->birthday = date('Y-m-d',strtotime($sheet->getCell('I'.$i)->getValue()));
+            $beneficiary->save();
+            $i++;
+        }
+        unlink('uploads/'.$fileName);
+
+        return redirect()->back();
+    }
+    public function importListBeneficiariesIndex(){
+
+        return view('layouts.importBeneficiaries');
     }
 }

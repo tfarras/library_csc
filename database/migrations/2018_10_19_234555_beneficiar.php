@@ -16,14 +16,15 @@ class Beneficiar extends Migration
         //
         Schema::create('beneficiar',function (Blueprint $table){
             $table->increments('id');
-            $table->string('fist_name');
-            $table->string('last_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->integer('study_year');
             $table->string('address');
             $table->string('idnp');
             $table->string('tel_number');
             $table->string('email');
             $table->date('birthday');
+            $table->integer('study_place_id');
             $table->timestamps();
         });
     }

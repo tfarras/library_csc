@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Books</a>
+            <a href="#">Beneficiaries</a>
         </li>
         <li class="breadcrumb-item active">List View</li>
     </ol>
@@ -19,49 +19,45 @@
                 <table class="table table-bordered" id="dataTable" style="max-height: 76vh" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>UID</th>
-                        <th style="width: 20%">Book Name</th>
-                        <th style="width: 15%">Author</th>
-                        <th>Edition</th>
-                        <th>Year of Publication</th>
-                        <th>Category</th>
-                        <th>Language</th>
-                        <th>Code</th>
-                        <th>Status</th>
-                        <th>Added at</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Place of Study</th>
+                        <th>Year of Study</th>
+                        <th>Address</th>
+                        <th>IDNP</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Birthday</th>
+                        <th>Register Date</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                        <th>UID</th>
-                        <th>Book Name</th>
-                        <th>Author</th>
-                        <th>Edition</th>
-                        <th>Year of Publication</th>
-                        <th>Category</th>
-                        <th>Language</th>
-                        <th>Code</th>
-                        <th>Status</th>
-                        <th>Added at</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Place of Study</th>
+                        <th>Year of Study</th>
+                        <th>Address</th>
+                        <th>IDNP</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Birthday</th>
+                        <th>Register Date</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                    @foreach($books as $book)
+                    @foreach($beneficiaries as $beneficiary)
                         <tr>
-                            <td>{{$book->id}}</td>
-                            <td>{{$book->name}}</td>
-                            <td>{{\App\Author::find($book->author_id)->name}}</td>
-                            <td>{{\App\Edition::find($book->edition_id)->name}}</td>
-                            <td>{{$book->publication_year}}</td>
-                            <td>{{\App\Category::find($book->category_id)->name}}</td>
-                            <td>
-                                {{($book->code)==1 ? 'Romanian' : ''}}
-                                {{($book->code)==2 ? 'Russian' : ''}}
-                                {{($book->code)==3 ? 'English' : ''}}
-                            </td>
-                            <td>{{\App\Category::find($book->category_id)->code.'.'.$book->code}}</td>
-                            <td>{{\App\BookStatus::find($book->status_id)->name}}</td>
-                            <td>{{$book->created_at}}</td>
+                            <td>{{$beneficiary->first_name}}</td>
+                            <td>{{$beneficiary->last_name}}</td>
+                            <td>{{\App\PlaceStudy::find($beneficiary->study_place_id)->name}}</td>
+                            <td>{{$beneficiary->study_year}}</td>
+                            <td>{{$beneficiary->address}}</td>
+                            <td>{{$beneficiary->idnp}}</td>
+                            <td>{{$beneficiary->tel_number}}</td>
+                            <td>{{$beneficiary->email}}</td>
+                            <td>{{$beneficiary->birthday}}</td>
+                            <td>{{$beneficiary->created_at}}</td>
                         </tr>
                     @endforeach
 
