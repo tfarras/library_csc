@@ -277,4 +277,103 @@ class HomeController extends Controller
 
         return redirect()->back()->with('success','Beneficiary was added successfully!');
     }
+
+    public function editBookPage(Request $request){
+        $book = Book::find($request->id);
+
+        return view('layouts.editBookPage')->with('book',$book);
+    }
+
+    public function editBookSave(Request $request){
+        $name = $request->name;
+        $author = $request->author;
+        $edition = $request->edition;
+        $year = $request->year.'-01-01';
+        $language = $request->language;
+        $category = $request->category;
+        $status = $request->status;
+
+        $author = Author::where('name',$author)->first();
+        $author_id=0;
+        if(!$author){
+            $author= new Author();
+            $author->name=$request->author;
+            $author->save();
+            $author_id=$author->id;
+        }else{
+            $author_id=$author->id;
+        }
+
+
+        $edition = Edition::where('name',$edition)->first();
+        $edition_id=0;
+        if(!$edition){
+            $edition=new Edition();
+            $edition->name=$request->edition;
+            $edition->save();
+            $edition_id=$edition->id;
+        }else{
+            $edition_id=$edition->id;
+        }
+
+        $year = date('Y-m-d',strtotime($year));
+
+        $book = Book::find($request->id);
+        $book->name = $name;
+        $book->author_id = $author_id;
+        $book->edition_id = $edition_id;
+        $book->publication_year = $year;
+        $book->code = $language;
+        $book->category_id = $category;
+        $book->status_id = $status;
+
+        $book->save();
+
+
+
+        return redirect()->back()->with('success','Book was edited successfully!');
+    }
+
+
+    public function editBeneficiaryPage(Request $request){
+        $beneficiary = Beneficiary::find($request->id);
+
+        return view('layouts.editBeneficiaryPage')->with('beneficiary',$beneficiary);
+
+    }
+
+    public function editBeneficiarySave(Request $request){
+
+        $first_name = $request->first_name;
+        $last_name = $request->last_name;
+        $year = $request->study_year;
+        $address = $request->address;
+        $idnp = $request->idnp;
+        $phone = $request->phone;
+        $email = $request->email;
+        $birthday = date('Y-m-d',strtotime($request->birthday));
+        $place = $request->study_place;
+
+        if(strlen($idnp)!=13){
+            return redirect()->back()->withErrors('Invalid IDNP!');
+        }
+        if(!is_numeric($idnp)){
+            return redirect()->back()->withErrors('Invalid IDNP!');
+        }
+
+        $beneficiary = Beneficiary::find($request->id);
+        $beneficiary->first_name = $first_name;
+        $beneficiary->last_name = $last_name;
+        $beneficiary->study_year = $year;
+        $beneficiary->address = $address;
+        $beneficiary->idnp = $idnp;
+        $beneficiary->tel_number = $phone;
+        $beneficiary->email = $email;
+        $beneficiary->birthday=$birthday;
+        $beneficiary->study_place_id=$place;
+        $beneficiary->save();
+
+        return redirect()->back()->with('success','Beneficiary was edited successfully!');
+    }
+
 }

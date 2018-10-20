@@ -30,4 +30,18 @@ Route::get('/beneficiary/add/manual/index',function (){
 })->name('beneficiary.manual.add');
 
 Route::post('/books/add/manual/save','HomeController@manualAddBook')->name('books.manual.add.save');
+Route::post('/books/edit/save','HomeController@editBookSave')->name('books.edit.save');
 Route::post('/beneficiary/add/manual/save','HomeController@manualAddBeneficiary')->name('beneficiaries.manual.add.save');
+Route::post('/beneficiary/edit/save','HomeController@editBeneficiarySave')->name('beneficiaries.edit.save');
+Route::get('/books/edit/{id}','HomeController@editBookPage')->name('books.edit.page');
+Route::get('/books/delete/{id}',function (\Illuminate\Http\Request $request){
+    \App\Book::find($request->id)->delete();
+    return redirect()->route('books.listview')->with('success','Record was deleted successfully!');
+})->name('books.delete.page');
+
+Route::get('beneficiary/delete/{id}',function (\Illuminate\Http\Request $request){
+   \App\Beneficiary::find($request->id)->delete();
+   return redirect()->route('beneficiaries.listview')->with('success','Record was deleted successfully!');
+})->name('beneficiary.delete.page');
+Route::get('/beneficiary/edit/{id}','HomeController@editBeneficiaryPage')->name('beneficiary.edit.page');
+

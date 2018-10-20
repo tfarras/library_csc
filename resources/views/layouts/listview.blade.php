@@ -22,13 +22,14 @@
                         <th>UID</th>
                         <th style="width: 20%">Book Name</th>
                         <th style="width: 15%">Author</th>
-                        <th>Edition</th>
+                        <th style="width: 10%">Edition</th>
                         <th>Year of Publication</th>
                         <th>Category</th>
                         <th>Language</th>
                         <th>Code</th>
                         <th>Status</th>
                         <th>Added at</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -43,6 +44,7 @@
                         <th>Code</th>
                         <th>Status</th>
                         <th>Added at</th>
+                        <th>Actions</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -62,6 +64,9 @@
                             <td>{{\App\Category::find($book->category_id)->code.'.'.$book->code}}</td>
                             <td>{{\App\BookStatus::find($book->status_id)->name}}</td>
                             <td>{{$book->created_at}}</td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <a href="{{route('books.edit.page',$book->id)}}"><i class="fa fa-list fa-2x" style="color:black"></i></a>
+                            </td>
                         </tr>
                     @endforeach
 

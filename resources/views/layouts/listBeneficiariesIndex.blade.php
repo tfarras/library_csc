@@ -29,6 +29,7 @@
                         <th>Email</th>
                         <th>Birthday</th>
                         <th>Register Date</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -43,6 +44,7 @@
                         <th>Email</th>
                         <th>Birthday</th>
                         <th>Register Date</th>
+                        <th>Actions</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -58,6 +60,9 @@
                             <td>{{$beneficiary->email}}</td>
                             <td>{{$beneficiary->birthday}}</td>
                             <td>{{$beneficiary->created_at}}</td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <a href="{{route('beneficiary.edit.page',$beneficiary->id)}}"><i class="fa fa-list fa-2x" style="color:black"></i></a>
+                            </td>
                         </tr>
                     @endforeach
 
